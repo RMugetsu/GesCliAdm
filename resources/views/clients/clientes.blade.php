@@ -26,9 +26,29 @@
         
         var clientes = {!! json_encode($clientes->toArray(), JSON_HEX_TAG) !!} ;
 
-        console.log(clientes)
 
-        CreateTable("#ClientsTable",clientes.data,undefined);
+        function llamadaAjax(metodo,direccion,datos,succesFunction){
+          $.ajax({
+            method: metodo,
+            url: direccion,
+            data: datos
+          })
+          .done(function( num ) {
+            pintarAlumno
+          });
+        }
+        
+
+        $(document).ready( function(){
+            $.ajax({
+                method: "get",
+                url: "/api/clientes",
+            }).done(function(clientes){
+                console.log(clientes);
+                CreateTable("#ClientsTable",clientes.data,undefined);
+            });
+        });
+        
 
         createFilter('#ClientsTable table thead',"/","clientes","table");
         

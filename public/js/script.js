@@ -114,3 +114,22 @@ function estadoVentas(){
         }
     });
 }
+
+function crearPaginado(info){
+    var divPaginado = $("<div>"); 
+    for (var i = 1; i< info.last_page; index++) {
+        if (i==1) {
+            var inicioPaginado = $("<label>").text("<").on("click",{url: info.path+"?page="+info.current_page-1},redirigir);
+            $(divPaginado).append(inicioPaginado);
+        }
+        var paginaIntermedia = $("<label>").text(i).on("click",{url: info.path+"?page="+i},redirigir);
+        $(divPaginado).append(paginaIntermedia);
+        if (i==info.last_page){
+            var finalPaginado = $("<label>").text(">").on("click",{url: info.path+"?page="+info.current_page+1},redirigir);
+            $(divPaginado).append(finalPaginado);
+        }
+    }
+}
+function redirigir(event){
+    window.location = event.data.url;
+}
