@@ -40,25 +40,9 @@
         
 
         $(document).ready( function(){
-            $.ajax({
-                method: "get",
-                url: "/api/clientes",
-            }).done(function(clientes){
-                console.log(clientes);
-                CreateTable("#ClientsTable",clientes.data,undefined);
-            });
+            ajaxClientes("1");    
         });
-        
-
-        createFilter('#ClientsTable table thead',"/","clientes","table");
-        
-       $('.clickable').each(function(){
-            $(this).attr("data-href","/clients/"+$(this).attr("id"));
-       })
-
-       $('.clickable').click(function(){
-            window.location=$(this).data('href');
-       });
+       
 
         $('input[name="filtro"]').val('{{$filtro}}');
 
