@@ -42,6 +42,17 @@ class ClientsController extends Controller
     public function create(Request $request){
         //echo $request->input('cif/nif');
         //Cliente::create($request->all());
+        $nombre = $request->input('nombre');
+        $direccion = $request->input('direccion');
+        $provincia = $request->input('provincia');
+        $localidad = $request->input('localidad');
+        $cifnif = $request->input('cif/nif');
+        $email = $request->input('email');
+        $telefono = $request->input('telefono');
+        $cp = $request->input('cp');
+
+        // hacer validaciones !!!
+        
         Cliente::create(
             [
                 'nombre' => $request->input('nombre'),
