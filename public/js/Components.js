@@ -143,11 +143,10 @@ function CreateForm(parent,data,params){
     var form=CreateElement(parent,"form",undefined,{id:"form"});
     var csrfVar = $('meta[name="csrf-token"]').attr('content');
     form.append("<input name='_token' value='" + csrfVar + "' type='hidden'>");
-    form.append('<input type="hidden" name="_method" value="PUT">');
     data.forEach(function(elements){
         for(item in elements){
             if(item==="id"){
-                form.attr({"method":"post","action":"/clients/"+elements[item]})
+                CreateElement(form,"input",undefined,{'value':elements[item],name:'ruta',hidden:true});
             }else{
                 var label=CreateElement(form,"label",item,undefined);
                 CreateElement(form,"input",undefined,{'value':elements[item],name:item,'required':true});

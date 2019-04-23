@@ -1,4 +1,7 @@
 var global_countTime;
+/*$( document ).ready(function() {
+    $("#aleatorio").text((Math.random()*10)+1)
+});*/
 
 function uniqueError(id){
     var control = true;

@@ -6,10 +6,10 @@
 
 @section('content')
     <div class="content">
-        
+        <!--<p id="aleatorio"></p>-->
         <div class="topContainer">
             <div class="top-title">
-                Listado de Clientes:
+                Listado de Clientes: 
             </div> 
             <div class="addUserIcon">
                 <a href="#costumModal10" data-toggle="modal">
@@ -26,7 +26,7 @@
         
         var clientes = {!! json_encode($clientes->toArray(), JSON_HEX_TAG) !!} ;
 
-        console.log(clientes)
+        //console.log(clientes)
 
         CreateTable("#ClientsTable",clientes.data,undefined);
 
@@ -59,7 +59,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="modal-form">
-                        <form id="form" action="/clients/create" method="POST">
+                        <form id="form">
                             @csrf
                             <label for="nombre">Nombre: <input type="text" name="nombre" class="input"></label>
                             <label for="direccion">Dirección: <input type="text" name="direccion" class="input"></label>
@@ -69,6 +69,7 @@
                             <label for="email">E-Mail: <input type="text" name="email" class="input"></label>
                             <label for="telefono">Teléfono: <input type="text" name="telefono" class="input"></label>
                             <label for="cp">Código Postal: <input type="text" name="cp" class="input"></label>
+                            <input type="text" name="ruta" value="create" hidden="true">
                         </div>
                     </div>
                     <div class="modal-footer">

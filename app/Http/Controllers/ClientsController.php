@@ -36,6 +36,9 @@ class ClientsController extends Controller
 
     }
 
+
+
+
     public function create(Request $request){
         //echo $request->input('cif/nif');
         //Cliente::create($request->all());
@@ -55,6 +58,7 @@ class ClientsController extends Controller
     }
 
     public function edit(Request $request, $id){
+        console.log("editando...");
         try{
             Cliente::findOrFail($id)
                 ->update([
@@ -68,7 +72,7 @@ class ClientsController extends Controller
                     'cp' => $request->input('cp'),
                 ]);
 
-            return redirect()->back();
+            return redirect('/');
         }catch(\Exception $ex){
             return back()->withErrors(['Error'=>'Error del servidor']);
         }

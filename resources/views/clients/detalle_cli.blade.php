@@ -134,7 +134,7 @@
 	</div>
     <script type="text/javascript">
         var cliente = {!! json_encode($cliente, JSON_HEX_TAG) !!};
-        console.log(cliente)
+        //console.log(cliente)
         var listadoventas = {!! json_encode($ventas, JSON_HEX_TAG) !!};
         var ventas = listadoventas.data;
         CreateForm('#Input',cliente,undefined);

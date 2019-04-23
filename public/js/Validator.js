@@ -2,9 +2,35 @@
 $('#form').submit(function(e){
     e.preventDefault();
     if(checkNulls() && validate()){
-        $('#form')[0].submit();
+		console.log($("input[name='ruta']").val())
+		var ruta = '/clients/'+$("input[name='ruta']").val()
+        $.ajax({
+			url: ruta, 
+			type: 'POST', 
+			dataType: 'html', 
+			data: $('#form').first().serialize(), 
+			success: function() {
+				console.log("bien");
+				if ($("input[name='ruta']").val()=='create'){
+					$('#costumModal10').modal('toggle');
+					//modal.empty.... vaciar y poner un mensaje Satisfactorio.
+				}
+				//$('#form')[0].ajaxSubmit({url: '/clients/'+$("input[name='ruta']").val(), type: 'post'})
+				//nose si hace falta la linea de arriba, creo q no
+			},
+			error: function(e) {
+				console.log("error");
+				//console.log($('#form').first().serialize());
+				console.log(e);
+			}
+	  }); 
     }
 });
+
+function showHideModal(quehacer) {
+	$('#costumModal10').modal(quehacer);
+};
+
 
 /*$('#createSale').submit(function(e){
     e.preventDefault();

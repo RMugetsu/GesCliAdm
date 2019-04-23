@@ -1,4 +1,4 @@
-<?
+<?php
     Breadcrumbs::register('clientes', function ($breadcrumbs) {
         $breadcrumbs->push('Home', route('clientes'));
     });

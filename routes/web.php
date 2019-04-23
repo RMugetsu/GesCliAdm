@@ -25,7 +25,7 @@ Route::get('/clients/{id}',  ['as' => 'cliente', 'uses' => 'ClientsController@sh
 
 Route::get('/sales/{id}',  ['as' => 'venta', 'uses' => 'ClientsController@showSale']);
 
-Route::put('/clients/{id}', 'ClientsController@edit');
+Route::post('/clients/{id}', 'ClientsController@edit');
 
 Route::post('/uploadFile/{id}', 'ClientsController@upload');
 
