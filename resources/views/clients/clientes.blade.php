@@ -28,17 +28,22 @@
 
         //console.log(clientes)
 
-        CreateTable("#ClientsTable",clientes.data,undefined);
-
-        createFilter('#ClientsTable table thead',"/","clientes","table");
+        function llamadaAjax(metodo,direccion,datos,succesFunction){
+          $.ajax({
+            method: metodo,
+            url: direccion,
+            data: datos
+          })
+          .done(function( num ) {
+            pintarAlumno
+          });
+        }
         
-       $('.clickable').each(function(){
-            $(this).attr("data-href","/clients/"+$(this).attr("id"));
-       })
 
-       $('.clickable').click(function(){
-            window.location=$(this).data('href');
-       });
+        $(document).ready( function(){
+            ajaxClientes("1");    
+        });
+       
 
         $('input[name="filtro"]').val('{{$filtro}}');
 

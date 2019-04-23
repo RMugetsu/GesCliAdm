@@ -1,7 +1,5 @@
 var global_countTime;
-/*$( document ).ready(function() {
-    $("#aleatorio").text((Math.random()*10)+1)
-});*/
+var AjUrl = "/api/clientes";
 
 function uniqueError(id){
     var control = true;
@@ -117,3 +115,65 @@ function estadoVentas(){
         }
     });
 }
+
+function crearPaginado(parent,info){
+    var divPaginado = $("<div>");
+    console.log(info);
+    for (var i = 1; i<= info.last_page; i++) {
+        if (info.current_page!=1) {
+            var inicioPaginado = $("<a>").text("<").attr("href",info.current_page-1).addClass("paginacion");
+            $(divPaginado).append(inicioPaginado);
+        }else if(i==1 && info.current_page==1){
+            var inicioPaginado = $("<a>").text("<");
+            $(divPaginado).append(inicioPaginado);
+        }
+        var paginaIntermedia = $("<a>").text(i).attr("href",i).addClass("paginacion");
+        $(divPaginado).append(paginaIntermedia);
+        if (i==info.last_page && info.current_page!=info.last_page){
+            var finalPaginado = $("<a>").text(">").attr("href",info.current_page+1).addClass("paginacion");
+            $(divPaginado).append(finalPaginado);
+        }else if(info.current_page==info.last_page){
+            var finalPaginado = $("<a>").text(">");
+            $(divPaginado).append(finalPaginado);
+        }
+        console.log(divPaginado);
+    }
+    $(parent).append(divPaginado);
+}
+
+function AsignarLinks(){
+    $('.clickable').each(function(){
+    $(this).attr("data-href","/clients/"+$(this).attr("id"));
+})
+    $('.clickable').click(function(){
+            window.location=$(this).data('href');
+    });
+}
+
+function ajaxClientes(page){
+    //console.log("Pagina antes del done:"+page);
+    console.log(AjUrl);
+    $.ajax({
+            url:AjUrl,
+            data: {
+                page:page
+            },
+        })
+        .done(function(res){
+            $('#ClientsTable').empty();
+            CreateTable("#ClientsTable",res.data); //crear tabla nuevo contenido
+            AsignarLinks();
+            crearPaginado("#ClientsTable",res)
+            console.log(res);
+            $(document).ready(function(){
+                console.log($(".paginacion a"));
+                $(".paginacion").on('click',function(e){
+                    e.preventDefault();
+                    ajaxClientes($(this).attr('href'));
+                });
+            });
+        })
+        .fail(function(jqXHR,textStatus){
+            console.log("fail: "+textStatus);
+        });  
+    }
