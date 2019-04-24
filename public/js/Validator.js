@@ -4,6 +4,7 @@ $('#form').submit(function(e){
     if(checkNulls() && validate()){
 		console.log($("input[name='ruta']").val())
 		var ruta = '/clients/'+$("input[name='ruta']").val()
+		console.log(ruta);
         $.ajax({
 			url: ruta, 
 			type: 'POST', 
