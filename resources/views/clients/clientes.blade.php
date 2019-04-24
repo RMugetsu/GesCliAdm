@@ -31,7 +31,7 @@
         
 
         $(document).ready( function(){
-            ajaxClientes("1");
+            ajaxClientes("1","");
         });
         $('input[name="filtro"]').val('{{$filtro}}');
 

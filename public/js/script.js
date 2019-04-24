@@ -70,7 +70,10 @@ function createFilter(parent,url,vista,tipo){
         .attr({'type':'button','value':'Resetear',class:"btn"})
         .appendTo(form);
 
-    $(reset).click(function(){window.location.assign(url)});
+    $(reset).on("click", function(a){
+        $("input[type=text][name=filtro]").val("");
+        ajaxClientes("1");
+    });
 
     $('<input>')
         .attr({'type':'hidden',"name":"tipo", "value":vista})
@@ -154,14 +157,14 @@ function AsignarLinks(){
 }
 
 
-$("input[type=submit]")
-
 
 function ajaxClientes(page){
+    var valorFiltrado = $("input[type=text][name=filtro]").val();
     $.ajax({
             url:AjUrl,
             data: {
-                page:page
+                page:page,
+                filtro: valorFiltrado
             },
         })
         .done(function(res){
@@ -170,16 +173,17 @@ function ajaxClientes(page){
             CreateTable("#ClientsTable",res.data); //crear tabla nuevo contenido
             AsignarLinks();
             crearPaginado("#ClientsPaginate",res);
-            // createFilter('#ClientsTable table thead',"/","clientes","table");
+            createFilter('#ClientsTable table thead',"/api/","clientes","table");
             $(document).ready(function(){
                 $(".paginacion").on('click',function(e){
                     e.preventDefault();
                     ajaxClientes($(this).attr('href'));
                 });
-                // $$("input[type=submit]").on('click',function(a){
-                //     a.preventDefault();
-                //     ajaxClientes("1");
-                // });
+                $("input[type=submit]").on('click',function(a){
+                    a.preventDefault();
+                    ajaxClientes("1");
+                });
+                $("input[type=text][name=filtro]").val(valorFiltrado);
             });
         })
         .fail(function(jqXHR,textStatus){
