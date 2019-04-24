@@ -70,7 +70,10 @@ function createFilter(parent,url,vista,tipo){
         .attr({'type':'button','value':'Resetear',class:"btn"})
         .appendTo(form);
 
-    $(reset).click(function(){window.location.assign(url)});
+    $(reset).on("click", function(a){
+        $("input[type=text][name=filtro]").val("");
+        ajaxClientes("1");
+    });
 
     $('<input>')
         .attr({'type':'hidden',"name":"tipo", "value":vista})
@@ -118,25 +121,28 @@ function estadoVentas(){
 
 function crearPaginado(parent,info){
     var divPaginado = $("<div>");
-    console.log(info);
     for (var i = 1; i<= info.last_page; i++) {
-        if (info.current_page!=1) {
-            var inicioPaginado = $("<a>").text("<").attr("href",info.current_page-1).addClass("paginacion");
+        if (i==1 && info.current_page!=1) {
+            var inicioPaginado = $("<a>").text("<").attr("href",info.current_page-1).addClass("paginacion btn btn-default");
             $(divPaginado).append(inicioPaginado);
         }else if(i==1 && info.current_page==1){
-            var inicioPaginado = $("<a>").text("<");
+            var inicioPaginado = $("<a>").text("<").addClass("btn btn-default");
             $(divPaginado).append(inicioPaginado);
         }
-        var paginaIntermedia = $("<a>").text(i).attr("href",i).addClass("paginacion");
+        if( i==info.current_page){
+            var paginaIntermedia = $("<a>").text(i).attr("href",i).addClass("paginacion btn btn-default active");
         $(divPaginado).append(paginaIntermedia);
+        }else{
+            var paginaIntermedia = $("<a>").text(i).attr("href",i).addClass("paginacion btn btn-default");
+        $(divPaginado).append(paginaIntermedia);
+        }
         if (i==info.last_page && info.current_page!=info.last_page){
-            var finalPaginado = $("<a>").text(">").attr("href",info.current_page+1).addClass("paginacion");
+            var finalPaginado = $("<a>").text(">").attr("href",info.current_page+1).addClass("paginacion btn btn-default");
             $(divPaginado).append(finalPaginado);
-        }else if(info.current_page==info.last_page){
-            var finalPaginado = $("<a>").text(">");
+        }else if(info.current_page==info.last_page && i==info.last_page){
+            var finalPaginado = $("<a>").text(">").addClass("btn btn-default");
             $(divPaginado).append(finalPaginado);
         }
-        console.log(divPaginado);
     }
     $(parent).append(divPaginado);
 }
@@ -150,27 +156,34 @@ function AsignarLinks(){
     });
 }
 
+
+
 function ajaxClientes(page){
-    //console.log("Pagina antes del done:"+page);
-    console.log(AjUrl);
+    var valorFiltrado = $("input[type=text][name=filtro]").val();
     $.ajax({
             url:AjUrl,
             data: {
-                page:page
+                page:page,
+                filtro: valorFiltrado
             },
         })
         .done(function(res){
             $('#ClientsTable').empty();
+            $("#ClientsPaginate").empty();
             CreateTable("#ClientsTable",res.data); //crear tabla nuevo contenido
             AsignarLinks();
-            crearPaginado("#ClientsTable",res)
-            console.log(res);
+            crearPaginado("#ClientsPaginate",res);
+            createFilter('#ClientsTable table thead',"/api/","clientes","table");
             $(document).ready(function(){
-                console.log($(".paginacion a"));
                 $(".paginacion").on('click',function(e){
                     e.preventDefault();
                     ajaxClientes($(this).attr('href'));
                 });
+                $("input[type=submit]").on('click',function(a){
+                    a.preventDefault();
+                    ajaxClientes("1");
+                });
+                $("input[type=text][name=filtro]").val(valorFiltrado);
             });
         })
         .fail(function(jqXHR,textStatus){

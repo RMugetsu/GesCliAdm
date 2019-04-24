@@ -21,30 +21,18 @@
     </div>
     
     <div id="ClientsTable"></div>
-    {{ $clientes->links() }}
+    <div id="ClientsPaginate"></div>
     <script>
         
         var clientes = {!! json_encode($clientes->toArray(), JSON_HEX_TAG) !!} ;
 
         //console.log(clientes)
 
-        function llamadaAjax(metodo,direccion,datos,succesFunction){
-          $.ajax({
-            method: metodo,
-            url: direccion,
-            data: datos
-          })
-          .done(function( num ) {
-            pintarAlumno
-          });
-        }
         
 
         $(document).ready( function(){
-            ajaxClientes("1");    
+            ajaxClientes("1","");
         });
-       
-
         $('input[name="filtro"]').val('{{$filtro}}');
 
     </script>

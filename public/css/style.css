@@ -238,3 +238,6 @@ div.ErrorContainer{
     font-weight: 400;
     font-size: 16px;
 }
+#ClientsPaginate{
+    margin-top: 2%;
+}
