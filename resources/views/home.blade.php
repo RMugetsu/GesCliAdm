@@ -11,8 +11,6 @@
 	<script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<script src="{{asset('js/Components.js')}}"></script>
-	<!-- BS JavaScript -->
-	<script type="text/javascript" src="js/bootstrap.js"></script>
 	
 	@yield('ownCSS')
 	

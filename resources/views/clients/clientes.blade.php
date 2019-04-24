@@ -77,8 +77,21 @@
             </div>
         </div>
     </div>
-   
 
+    <div id="costumModal11" class="modal" data-easein="bounceIn"  tabindex="-1" role="dialog" aria-labelledby="costumModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                </div>
+                <div class="modal-body">
+                <img width='40' src='/img/checkpink.png'><h3>Datos guardados correctamente.</h3>
+                </div>
+            </div>
+        </div>
+    </div>
 @stop
 
 

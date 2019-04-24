@@ -57,40 +57,7 @@ class ClientsController extends Controller
     public function create(Request $request){
         //echo $request->input('cif/nif');
         //Cliente::create($request->all());
-        /*$nombre = $request->input('nombre');
-        if (!($nombre.match("^[a-zç A-ZÇ À-ú]{3,30}$"))){
-            return back()->withErrors(['Error'=>'Error al introducir el nombre']);
-        }
-        $direccion = $request->input('direccion');
-        if (!($direccion.match("^[a-zç A-ZÇ À-ú]{3,50}$"))){
-            return back()->withErrors(['Error'=>'Error al introducir la direccion']);
-        }
-        $provincia = $request->input('provincia');
-        if (!($provincia.match("^[a-zç A-ZÇ À-ú]{3,30}$"))){
-            return back()->withErrors(['Error'=>'Error al introducir la provincia']);
-        }
-        $localidad = $request->input('localidad');
-        if (!($localidad.match("^[a-zç A-ZÇ À-ú]{3,30}$"))){
-            return back()->withErrors(['Error'=>'Error al introducir la localidad']);
-        }
-        $cifnif = $request->input('cif/nif');
-        if (!($cifnif.match("^[a-zç A-ZÇ À-ú 0-9]{9}$"))){
-            return back()->withErrors(['Error'=>'Error al introducir el cif / nif']);
-        }
-        $email = $request->input('email');
-        $validacion_mail = '/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
-        if (!($email.match($validacion_mail))){
-            return back()->withErrors(['Error'=>'Error al introducir el email']);
-        }
-        $telefono = $request->input('telefono');
-        if (!($telefono.match("^[0-9]{9}$"))){
-            return back()->withErrors(['Error'=>'Error al introducir el telefono']);
-        }
-        $cp = $request->input('cp');
-        if (!($cp.match("^[0-9]{5}$"))){
-            return back()->withErrors(['Error'=>'Error al introducir el codigo postal']);
-        }
-        */
+        
         Cliente::create(
             [
                 'nombre' => $request->input('nombre'),

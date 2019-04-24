@@ -2,35 +2,27 @@
 $('#form').submit(function(e){
     e.preventDefault();
     if(checkNulls() && validate()){
-		console.log($("input[name='ruta']").val())
 		var ruta = '/clients/'+$("input[name='ruta']").val()
-		console.log(ruta);
         $.ajax({
 			url: ruta, 
 			type: 'POST', 
 			dataType: 'html', 
 			data: $('#form').first().serialize(), 
 			success: function() {
-				console.log("bien");
 				if ($("input[name='ruta']").val()=='create'){
 					$('#costumModal10').modal('toggle');
-					//modal.empty.... vaciar y poner un mensaje Satisfactorio.
 				}
-				//$('#form')[0].ajaxSubmit({url: '/clients/'+$("input[name='ruta']").val(), type: 'post'})
-				//nose si hace falta la linea de arriba, creo q no
+				$('#costumModal11').modal('toggle');
+				ajaxClientes($("a.active").text()); //Llamada a la funcion de ajax para actualizar los datos
 			},
 			error: function(e) {
 				console.log("error");
-				//console.log($('#form').first().serialize());
 				console.log(e);
+				createError("Error del servidor.");
 			}
 	  }); 
     }
 });
-
-function showHideModal(quehacer) {
-	$('#costumModal10').modal(quehacer);
-};
 
 
 /*$('#createSale').submit(function(e){
@@ -48,7 +40,8 @@ $("#form .input" ).change(function() {
 
 //Función que valida si un formulario es correcto o no
 function validate(){
-    var control = true;
+	return true;
+    /*var control = true;
     var email = $("input[name='email']");
     var telefono = $("input[name='telefono']");
 	var dni = $("input[name='cif/nif']");
@@ -69,7 +62,7 @@ function validate(){
 		createError("cif/nif incorrecto","nif");
         control = false;
 	}
-	
+	*/
 	/*if(stateDropDown.children("option:selected").val() === ""){
 		stateDropDown.css('border','1px solid red');
 		createError("Todos los campos son obligatorios.","blank");
