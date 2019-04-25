@@ -11,9 +11,10 @@ $('#form').submit(function(e){
 			success: function() {
 				if ($("input[name='ruta']").val()=='create'){
 					$('#costumModal10').modal('toggle');
+					ajaxClientes($("a.active").text());
+					$('#costumModal11').modal('toggle');
 				}
-				$('#costumModal11').modal('toggle');
-				ajaxClientes($("a.active").text()); //Llamada a la funcion de ajax para actualizar los datos
+				 //Llamada a la funcion de ajax para actualizar los datos
 			},
 			error: function(e) {
 				console.log("error");
@@ -40,8 +41,7 @@ $("#form .input" ).change(function() {
 
 //Función que valida si un formulario es correcto o no
 function validate(){
-	return true;
-    /*var control = true;
+	var control = true;
     var email = $("input[name='email']");
     var telefono = $("input[name='telefono']");
 	var dni = $("input[name='cif/nif']");
@@ -62,7 +62,7 @@ function validate(){
 		createError("cif/nif incorrecto","nif");
         control = false;
 	}
-	*/
+	
 	/*if(stateDropDown.children("option:selected").val() === ""){
 		stateDropDown.css('border','1px solid red');
 		createError("Todos los campos son obligatorios.","blank");
